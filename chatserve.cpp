@@ -7,8 +7,8 @@
 
 #include <iostream>
 #include <stdio.h>
-#include <string>
 #include <stdlib.h>
+#include <string.h>
 #include <unistd.h>
 #include <sys/types.h> 
 #include <sys/socket.h>
@@ -57,7 +57,7 @@ int main(int argc, char *argv[]) {
     printf("Please enter your handle: ");
     fgets(char_handle,sizeof(char) * 12, stdin);
     // remove newline from input
-    char_handle[std::strcspn(char_handle, "\n")] = 0;
+    char_handle[strcspn(char_handle, "\n")] = 0;
     printf("Your handle is %s\n", char_handle);
 
     // start server
@@ -74,7 +74,7 @@ int main(int argc, char *argv[]) {
             }
 
             // clear server address
-            std::bzero((char*) &server_address, sizeof(server_address));
+            bzero((char*) &server_address, sizeof(server_address));
 
             // Specify address type
             server_address.sin_family = AF_INET;
@@ -113,7 +113,7 @@ int main(int argc, char *argv[]) {
         
         while (!stop) {
             // clear buffer
-            std::bzero(buffer,512);
+            bzero(buffer,512);
             printf("[waiting for response...]\n");
             
             // read from socket
@@ -121,7 +121,7 @@ int main(int argc, char *argv[]) {
                 printf("Could not read from socket.\n");
             } else {
                 // check if \quit was received from client
-                if (std::strcmp(buffer, quit) == 0) {
+                if (strcmp(buffer, quit) == 0) {
                     printf("Client closed the connection.\n");
                     shutdown(connected_sock,2);
                     close(connected_sock);
@@ -135,8 +135,8 @@ int main(int argc, char *argv[]) {
 
                     // send message
                     printf("%s> ", char_handle);
-                    std::bzero(buffer,512);
-                    std::bzero(message,500);
+                    bzero(buffer,512);
+                    bzero(message,500);
 
                     // get user message input
                     std::cin.getline(message, 500);
@@ -151,10 +151,10 @@ int main(int argc, char *argv[]) {
                     i++;
                     buffer[i] = ' ';
                     i++;
-                    std::strcpy(buffer + (i * sizeof(int)), message);
+                    strcpy(buffer + (i * sizeof(int)), message);
                     
                     // check for quit signal
-                    if (std::strcmp(message, quit) == 0) {
+                    if (strcmp(message, quit) == 0) {
                         printf("Closing the connection.\n");
                         write(connected_sock,quit,6);
                         shutdown(connected_sock,2);
