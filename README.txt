@@ -14,6 +14,10 @@ Enter your handle on the server.
 Then launch the client like this:
 python chatclient.py [hostname] [port number]
 
+Enter the handle on the client.
+
+Client must send first message.  After that they alternate.
+
 NOTE:
 If you are running on flip, be sure to pass the correct host.
 For example, if chatserve is running on flip2.engr.oregonstate.edu,
