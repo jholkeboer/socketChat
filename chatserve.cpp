@@ -140,10 +140,9 @@ int main(int argc, char *argv[]) {
                     bzero(message,500);
 
                     // get user message input
-                    std::cin.getline(message, 500);
                     std::cin.clear();
                     fflush(stdin);
-
+                    std::cin.getline(message, 500);
                     
                     // copy handle and message to buffer
                     i = 0;
