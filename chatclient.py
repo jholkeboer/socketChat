@@ -24,10 +24,29 @@ try:
     # print 'Attempting connection to host %s on port %d ...' % [host,port]
     host_ip = socket.gethostbyname(host)
     sock.connect((host_ip, port))
+    
     msg = raw_input("%s> " % handle)
     while (msg != '\quit'):
-        sock.send(msg)
+        # send message
+        if len(msg) <= 500:
+            sock.send("%s> " % handle + msg)
+        else:
+            print 'Your message was too long. Maximum 500 characters.'
+            
+        # wait to receive message
+        print '[waiting for response...]'
+        response = sock.recv(512)
+        if response == "\quit":
+            sock.shutdown(socket.SHUT_RDWR)
+            sock.close()
+            print "Received quit signal. Closing connection."
+            sys.exit()
+        print response
+        
+        # input new message to send
         msg = raw_input("%s> " % handle)
+    sock.shutdown(socket.SHUT_RDWR)
+    sock.close()
 except socket.gaierror:
     print 'Could not find host. Exiting.'
     sys.exit()
