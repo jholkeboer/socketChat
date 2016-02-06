@@ -143,7 +143,7 @@ int main(int argc, char *argv[]) {
                     std::cin.clear();
                     std::cin.getline(message, 500);
                     //clear buffer
-                    while ((ch = cin.get()) != '\n' && ch != EOF);
+                    while ((ch = std::cin.get()) != '\n' && ch != EOF);
                     
                     // copy handle and message to buffer
                     i = 0;
