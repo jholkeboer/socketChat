@@ -136,13 +136,14 @@ int main(int argc, char *argv[]) {
                     printf("%s\n", buffer);
 
                     // send message
+                    printf("%s> ", char_handle);
                     bzero(buffer,512);
                     bzero(message,500);
 
                     // get user message input
-                    while ((ch = std::cin.get()) != '\n' && ch != EOF);
-                    printf("%s> ", char_handle);
                     std::cin.getline(message, 500);
+                    //clear buffer
+                    std::cin.ignore(INT_MAX,'\n');
                     
                     // copy handle and message to buffer
                     i = 0;
