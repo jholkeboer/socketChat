@@ -36,6 +36,7 @@ int main(int argc, char *argv[]) {
     socklen_t client_length;
     char char_handle[12];
     char quit[6] = "\\quit";
+    char ch;    // used to clear buffer
     
     // handle sigint and sigkill
     signal(SIGINT, signal_handler);
