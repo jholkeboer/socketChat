@@ -141,7 +141,7 @@ int main(int argc, char *argv[]) {
                     // get user message input
                     std::cin.getline(message, 500);
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
+                    std::cin.ignore(500, '\n');
                     
                     // copy handle and message to buffer
                     i = 0;
