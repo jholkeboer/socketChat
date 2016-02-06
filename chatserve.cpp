@@ -142,7 +142,6 @@ int main(int argc, char *argv[]) {
                     // get user message input
                     std::cin.getline(message, 500);
                     std::cin.clear();
-                    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n');
                     fflush(stdin);
 
                     
