@@ -7,26 +7,27 @@
 import sys
 import socket
 
+
+if len(sys.argv) != 3:
+    print "Usage: python chatclient.py [host] [port number"
+    sys.exit()
+
+host = sys.argv[1]
+port = int(sys.argv[2])
 print 'Welcome to the socketChat client.'
 
-# get server hostname, port number, and handle from user
-host = raw_input('Enter the server\'s hostname: ').strip()
-port = raw_input('Enter the server\'s port number: ')
-if port.isdigit():
-    port = int(port)
-else:
-    print 'Port was not a valid number. Exiting.'
-    sys.exit()
-handle = raw_input('').strip()
 
-# # create socket
+
+# get server hostname, port number, and handle from user
+
+
+# create socket
 sock = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
 
 try:
     # print 'Attempting connection to host %s on port %d ...' % [host,port]
     host_ip = socket.gethostbyname(host)
     sock.connect((host_ip, port))
-    # sock.connect((socket.gethostbyname(host), port))
 except socket.gaierror:
     print 'Could not find host. Exiting.'
     sys.exit()

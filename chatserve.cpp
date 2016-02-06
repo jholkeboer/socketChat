@@ -3,14 +3,17 @@
 // # cs372
 // # Project 1
 // # holkeboj@onid.oregonstate.edu
-// Based on: http://www.linuxhowtos.org/data/6/server.c
+// Based on: http://www.tutorialspoint.com/unix_sockets/socket_server_example.htm
 
-#include <iostream>
 #include <stdio.h>
 #include <stdlib.h>
+#include <string.h>
+#include <unistd.h>
+#include <sys/types.h> 
 #include <sys/socket.h>
+#include <netinet/in.h>
 
-using namespace std;
+// using namespace std;
 
 
 int main(int argc, char *argv[]) {
@@ -19,13 +22,16 @@ int main(int argc, char *argv[]) {
     struct sockaddr_in server_address, client_address;
     socklen_t client_length;
     
-    // Get port number from client
-    printf("Welcome to the socketChat server.\nEnter a port number: ");
-    int port;
-    cin >> port;
-    if (cin.fail()) {
-        printf("Invalid port number. Exiting.\n");
+    if (argc != 2) {
+        printf("Please provide a port number as an argument.\n");
         exit(1);
+    } else {
+        port = atoi(argv[1]);
+        if ((port < 1024) || (port > 65535)) {
+            printf("Please enter a port number between 1024 and 65535.\n");
+            exit(1);
+        }
+        printf("Welcome to the socketChat server.\n");
     }
     
     // Create Socket
@@ -35,17 +41,19 @@ int main(int argc, char *argv[]) {
         exit(1);
     }
 
+    bzero((char*) &server_address, sizeof(server_address));
+
     // Specify address type
     server_address.sin_family = AF_INET;
     
     // Whatever IP this program is running on will be assigned
-    server_address.sin_addr.s_adds = INADDR_ANY;
+    server_address.sin_addr.s_addr = INADDR_ANY;
     
     // Attach port number, convert to network btye order
     server_address.sin_port = htons(port);
     
     // Bind to socket.  This socket will accept initial conenctions from clients
-    if (bind(initial_sock, (struct sockaddr *) server_address, sizeof(server_address)) < 0) {
+    if (bind(initial_sock, (struct sockaddr *) &server_address, sizeof(server_address)) < 0) {
         printf("Could not bind to socket. Exiting.\n");
     }
     
