@@ -142,8 +142,6 @@ int main(int argc, char *argv[]) {
 
                     // get user message input
                     std::cin.getline(message, 500);
-                    //clear buffer
-                    std::cin.ignore(100000,'\n');
                     
                     // copy handle and message to buffer
                     i = 0;
