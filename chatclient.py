@@ -31,10 +31,10 @@ try:
 
     while (msg != '\quit'):
         # send message
-        if len(msg) <= 500:
-            sock.send("%s> %s" % (handle,msg))
-        else:
+        while len(msg) > 500:
             print 'Your message was too long. Maximum 500 characters.'
+            msg = raw_input("%s> " % handle)
+        sock.send("%s> %s" % (handle,msg))
             
         # wait to receive message
         print '[waiting for response...]'
