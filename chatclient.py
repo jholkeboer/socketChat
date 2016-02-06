@@ -36,7 +36,7 @@ try:
         # wait to receive message
         print '[waiting for response...]'
         response = sock.recv(512)
-        if response == "\quit":
+        if response.endswith("\quit"):
             sock.shutdown(socket.SHUT_RDWR)
             sock.close()
             print "Received quit signal. Closing connection."
@@ -45,8 +45,8 @@ try:
         
         # input new message to send
         msg = raw_input("%s> " % handle)
-    sock.shutdown(socket.SHUT_RDWR)
-    sock.close()
+    print "Closing Connection."
+    sock.send("\quit")
 except socket.gaierror:
     print 'Could not find host. Exiting.'
     sys.exit()
