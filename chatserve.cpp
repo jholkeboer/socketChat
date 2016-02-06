@@ -6,6 +6,7 @@
 // Based on: http://www.tutorialspoint.com/unix_sockets/socket_server_example.htm
 
 #include <iostream>
+#include <limits>
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
